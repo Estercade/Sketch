@@ -1,10 +1,16 @@
+.gridContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
 /* Select all div elements with id starting with row */
 div [id^=row] {
     display: flex;
-    gap: 5px;
-    justify-content: space-between;
 }
 
 div [id^=gridBox] {
     border: 3px solid black;
+    flex: 1;
 }
