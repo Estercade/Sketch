@@ -1,14 +1,10 @@
-html {
-    height: 100%;
-    width: 100%;
-}
-
 #gridContainer {
     margin: auto auto;
     flex: 1 1 0;
     /* gridBoxes flex based on width, limiting max-width */
     /* of gridContainer to viewport height will prevent */
     /* gridBoxes from stretching taller than screen size */
+    /* max-width set to 90vh to account for size of header */
     max-width: 90vh;
 }
 
@@ -30,5 +26,6 @@ div [id^=gridBox] {
 }
 
 #sizeBtn {
-    margin: 20px auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }

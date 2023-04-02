@@ -1,5 +1,6 @@
 const gridContainer = document.getElementById('gridContainer');
 
+// Default grid size of 16 x 16 upon pageload
 let width = 16;
 let height = 16;
 
@@ -11,7 +12,6 @@ function generateGrid () {
             const tempGrid = document.createElement('div');
             tempGrid.setAttribute('id', `gridBox${i}${j}`);
             tempGrid.setAttribute('class', 'gridBox');
-            // tempGrid.textContent = `${i}${j}`;
             tempRow.appendChild(tempGrid);
         }
         gridContainer.appendChild(tempRow);
@@ -29,7 +29,6 @@ function colorChange(e) {
     if (!e.target.style.backgroundColor) {
         randomizeColor(e);
     } else {
-        // e.target.style.filter = 'brightness(0.10)';
         darkenColor(e);
     }
 }
@@ -40,6 +39,9 @@ function randomizeColor(e) {
     e.target.setAttribute('style', `background-color:${randomColor}`);
 }
 
+// Colors start at brightness 1, repeat hover will 
+// decrease brightness by 10% and at brightness 0 
+// gridBox will be black
 function darkenColor(e) {
     let brightness = Number(e.target.style.filter.slice(-4, -1));
     if (!e.target.style.filter) {
