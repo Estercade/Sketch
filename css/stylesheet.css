@@ -1,16 +1,34 @@
-.gridContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex: 1;
+html {
+    height: 100%;
+    width: 100%;
+}
+
+#gridContainer {
+    margin: auto auto;
+    flex: 1 1 0;
+    /* gridBoxes flex based on width, limiting max-width */
+    /* of gridContainer to viewport height will prevent */
+    /* gridBoxes from stretching taller than screen size */
+    max-width: 90vh;
 }
 
 /* Select all div elements with id starting with row */
 div [id^=row] {
     display: flex;
+    flex: 1 1 0;
 }
 
 div [id^=gridBox] {
-    border: 3px solid black;
-    flex: 1;
+    border: 1px solid black;
+    flex: 1 1 0;
+    aspect-ratio: 1 / 1;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+}
+
+#sizeBtn {
+    margin: 20px auto;
 }
