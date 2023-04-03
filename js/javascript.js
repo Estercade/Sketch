@@ -1,14 +1,13 @@
 const gridContainer = document.getElementById('gridContainer');
 
 // Default grid size of 16 x 16 upon pageload
-let width = 16;
-let height = 16;
+let size = 16;
 
 function generateGrid () {
-    for (let i = 0; i < height; i++) {
+    for (let i = 0; i < size; i++) {
         const tempRow = document.createElement('div');
         tempRow.setAttribute('id', `row${i}`);
-        for (let j = 0; j < width; j++) {
+        for (let j = 0; j < size; j++) {
             const tempGrid = document.createElement('div');
             tempGrid.setAttribute('id', `gridBox${i}${j}`);
             tempGrid.setAttribute('class', 'gridBox');
@@ -18,11 +17,50 @@ function generateGrid () {
     }
 }
 
-// Add event listeners to gridBoxes for hover function
-function addHover() {
+var isClicked = false;
+
+window.addEventListener('mousedown', e => {
+    isClicked = true;
+    console.log('Click down')
+    }
+);
+
+window.addEventListener('mouseup', e => {
+    isClicked = false;
+    }
+);
+  
+
+// Add event listeners to gridBoxes for hover and mouseover
+function addEvents() {
     const gridBoxes = document.querySelectorAll('.gridBox');
-    gridBoxes.forEach(gridBox => 
-        gridBox.addEventListener('mouseover', colorChange));
+    gridBoxes.forEach((gridBox) => 
+        gridBox.addEventListener('mouseover', hoverToggleHandler));
+    gridBoxes.forEach((gridBox) =>
+        gridBox.addEventListener('mousedown', hoverToggleHandler));
+    gridBoxes.forEach((gridBox) =>
+        gridBox.addEventListener('mouseenter', hoverToggleHandler));
+};
+
+const hoverToggleSwitch = document.getElementById('hoverToggleSwitch')
+hoverToggleSwitch.addEventListener('click', hoverToggle);
+
+function hoverToggleHandler(e) {
+    if (activeHoverToggle.includes(e.type)) {
+        colorChange(e);
+    } else {
+        return;
+    }
+}
+
+let activeHoverToggle = 'mouseover'
+
+function hoverToggle(e) {
+    if (hoverToggleSwitch.checked === true) {
+        activeHoverToggle = 'mousedown, mouseenter';
+    } else if (hoverToggleSwitch.checked === false) {
+        activeHoverToggle = 'mouseover';
+    }
 }
 
 function colorChange(e) {
@@ -58,15 +96,14 @@ const sizeBtn = document.getElementById('sizeBtn');
 sizeBtn.addEventListener('click', resize);
 
 function resize () {
-    height = prompt("How tall would you like the sketchpad to be? (maximum 100)");
-    width = prompt("How wide would you like the sketchpad to be? (maximum 100)");
-    if (height > 100 || height < 1 || height === null || width > 100 || width < 1 || width === null) {
+    size = prompt("How large would you like the sketchpad to be? (maximum 100)");
+    if (size > 100 || size < 1 || size === null) {
         alert("Please enter a valid number.");
         throw new Error("Input is not a valid number.");
     }
     clearGrid();
     generateGrid();
-    addHover();
+    addEvents();
 }
 
 function clearGrid() {
@@ -75,4 +112,23 @@ function clearGrid() {
     }
 }
 
-document.onload = generateGrid(), addHover();
+const gridLinesToggle = document.getElementById('gridLinesToggle');
+gridLinesToggle.addEventListener('click', showGridLines);
+
+function showGridLines() {
+    return;
+    // const gridBoxes = document.querySelectorAll('.gridBox');
+    // gridBoxes.forEach(gridBox =>
+    //     gridBox.style.border-style = none);
+}
+
+const clearColorsBtn = document.getElementById('clearColorsBtn');
+clearColorsBtn.addEventListener('click', clearColors);
+
+function clearColors() {
+    const gridBoxes = document.querySelectorAll('.gridBox');
+    gridBoxes.forEach((gridBox) => 
+    gridBox.removeAttribute('style'))
+}
+
+document.onload = generateGrid(), addEvents();
