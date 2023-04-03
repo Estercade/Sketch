@@ -21,7 +21,6 @@ var isClicked = false;
 
 window.addEventListener('mousedown', e => {
     isClicked = true;
-    console.log('Click down')
     }
 );
 
@@ -46,13 +45,15 @@ const hoverToggleSwitch = document.getElementById('hoverToggleSwitch')
 hoverToggleSwitch.addEventListener('click', hoverToggle);
 
 function hoverToggleHandler(e) {
-    if (activeHoverToggle.includes(e.type)) {
-        colorChange(e);
-    } else {
+    if (!activeHoverToggle.includes(e.type)) {
+        return;
+    } else if (e.type === 'mouseenter' && isClicked === false) {
         return;
     }
+    colorChange(e);
 }
 
+// Set to hover by default
 let activeHoverToggle = 'mouseover'
 
 function hoverToggle(e) {
