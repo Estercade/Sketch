@@ -1,3 +1,7 @@
+body {
+  font-family: 'Helvetica Rounded', 'Arial Rounded MT Bold','Montserrat', sans-serif;
+}
+
 #gridContainer {
     margin: auto auto;
     flex: 1 1 0;
@@ -5,7 +9,14 @@
     /* of gridContainer to viewport height will prevent */
     /* gridBoxes from stretching taller than screen size */
     /* max-width set to 90vh to account for size of header */
-    max-width: 90vh;
+    max-width: 86vh;
+    border: 1px solid lightgrey;
+    draggable: false;
+    /* Prevent user select to prevent mouseup/mousedown */
+    /* malfunction */ 
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
 }
 
 /* Select all div elements with id starting with row */
@@ -15,9 +26,10 @@ div [id^=row] {
 }
 
 div [id^=gridBox] {
-    border: 1px solid black;
+    border: 1px solid lightgrey;
     flex: 1 1 0;
     aspect-ratio: 1 / 1;
+    draggable: false;
 }
 
 .header {
@@ -25,7 +37,64 @@ div [id^=gridBox] {
     justify-content: center;
 }
 
+.content {
+    display: flex;
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 #sizeBtn {
-    margin-top: 20px;
-    margin-bottom: 20px;
+}
+
+.toggle {
+  cursor: pointer;
+  display: inline-block;
+}
+.toggle-switch {
+  display: inline-block;
+  background: #ccc;
+  border-radius: 16px;
+  width: 30px;
+  height: 18px;
+  position: relative;
+  vertical-align: middle;
+  transition: background 0.25s;
+}
+
+.toggle-switch:before, .toggle-switch:after {
+  content: "";
+}
+.toggle-switch:before {
+  display: block;
+  background: linear-gradient(to bottom, #fff 0%, #eee 100%);
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+  width: 14px;
+  height: 14px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: left 0.1s;
+}
+.toggle:hover .toggle-switch:before {
+  background: linear-gradient(to bottom, #fff 0%, #fff 100%);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
+}
+.toggle-checkbox:checked + .toggle-switch:before {
+  left: 14px;
+}
+
+.toggle-checkbox {
+  position: absolute;
+  visibility: hidden;
+}
+
+.toggle-label {
+  margin-left: 5px;
+  position: relative;
+  top: 2px;
 }
